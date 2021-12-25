@@ -93,30 +93,30 @@ namespace NetworkTrayGraph
             // 
             this.TitleToolStripMenuItem.Enabled = false;
             this.TitleToolStripMenuItem.Name = "TitleToolStripMenuItem";
-            this.TitleToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.TitleToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.TitleToolStripMenuItem.Text = "NetworkTrayGraph";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(169, 6);
             // 
             // SettingsToolStripMenuItem
             // 
             this.SettingsToolStripMenuItem.Name = "SettingsToolStripMenuItem";
-            this.SettingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.SettingsToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.SettingsToolStripMenuItem.Text = "Settings";
             this.SettingsToolStripMenuItem.Click += new System.EventHandler(this.SettingsToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(169, 6);
             // 
             // ExitToolStripMenuItem
             // 
             this.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem";
-            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.ExitToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.ExitToolStripMenuItem.Text = "Exit";
             this.ExitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
@@ -148,9 +148,9 @@ namespace NetworkTrayGraph
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(14, 46);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(74, 13);
+            this.label1.Size = new System.Drawing.Size(80, 13);
             this.label1.TabIndex = 8;
-            this.label1.Text = "Receive Color";
+            this.label1.Text = "Received Color";
             // 
             // label2
             // 

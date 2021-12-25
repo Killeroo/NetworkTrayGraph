@@ -199,7 +199,7 @@ namespace NetworkTrayGraph
             _graphIconHandle = (_graphIconBitmap.GetHicon());
             GraphNotifyIcon.Icon = System.Drawing.Icon.FromHandle(_graphIconHandle);
             GraphNotifyIcon.Text = string.Format(
-                "Receive: {0}\n" +
+                "Received: {0}\n" +
                 "Sent: {1}",
                 GenerateSpeedString(_totalReceivedBytesPerSecond),
                 GenerateSpeedString(_totalSentBytesPerSecond));
