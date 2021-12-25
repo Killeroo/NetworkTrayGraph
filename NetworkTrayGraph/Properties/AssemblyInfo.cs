@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Chasovoy")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("NetworkTrayGraph")]
+[assembly: AssemblyDescription("Creates a small network throughput graph in the system tray.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Chasovoy")]
-[assembly: AssemblyCopyright("Copyright ©  2021")]
+[assembly: AssemblyCompany("Matthew Carney")]
+[assembly: AssemblyProduct("NetworkTrayGraph")]
+[assembly: AssemblyCopyright("Copyright © Matthew Carney 2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("a6100d8c-d456-4a6a-ab20-03504cc69470")]
+[assembly: Guid("aff326fc-0e28-455a-b589-5e36e9afe5d7")]
 
 // Version information for an assembly consists of the following four values:
 //

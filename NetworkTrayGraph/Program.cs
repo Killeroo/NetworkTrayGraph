@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Chasovoy
+namespace NetworkTrayGraph
 {
     static class Program
     {
@@ -16,7 +16,7 @@ namespace Chasovoy
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new SettingsForm());
+            Application.Run(new MainForm());
         }
     }
 }
