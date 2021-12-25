@@ -145,9 +145,18 @@ namespace NetworkTrayGraph
 
             newStats.SentBytes = interfaceIPv4Stats.BytesSent;
             newStats.ReceivedBytes = interfaceIPv4Stats.BytesReceived;
-            newStats.BytesSentPerSecond = Convert.ToInt32((newStats.SentBytes - newStats.LastSentBytes) * (updateIntervalMs / 1000));
-            newStats.BytesReceivedPerSecond = Convert.ToInt32((newStats.ReceivedBytes - newStats.LastReceivedBytes) * (updateIntervalMs / 1000));
 
+            try
+            {
+                newStats.BytesSentPerSecond = Convert.ToInt32((newStats.SentBytes - newStats.LastSentBytes) * (updateIntervalMs / 1000));
+                newStats.BytesReceivedPerSecond = Convert.ToInt32((newStats.ReceivedBytes - newStats.LastReceivedBytes) * (updateIntervalMs / 1000));
+            }
+            catch(Exception) 
+            {
+                newStats.BytesSentPerSecond = 0;
+                newStats.BytesReceivedPerSecond = 0;
+            }
+            
             return newStats;
         }
     }
