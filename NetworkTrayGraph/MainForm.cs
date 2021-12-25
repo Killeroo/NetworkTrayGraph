@@ -17,6 +17,9 @@ namespace NetworkTrayGraph
     /// </summary>
     public partial class MainForm : Form
     {
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern bool DestroyIcon(IntPtr hIcon);
+
         private GraphSettings _graphSettings = new GraphSettings();
         private NetworkMonitor _monitor = new NetworkMonitor();
         private GraphBuilder _graphCreator = new GraphBuilder();
