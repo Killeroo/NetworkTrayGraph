@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net.NetworkInformation;
+using System.Runtime.InteropServices;
 
 namespace NetworkTrayGraph
 {
@@ -166,6 +167,7 @@ namespace NetworkTrayGraph
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+        /// 
         private void UpdateTimer_OnTick(object sender, EventArgs e)
         {
             // Get latest network data from monitor
@@ -189,7 +191,7 @@ namespace NetworkTrayGraph
 
             // Update preview
             PreviewPictureBox.Image = new Bitmap(_graphIconBitmap, new Size(64, 64));
-            
+
             // Update NotifyIcon with graph and tooltip text
             _graphIconHandle = (_graphIconBitmap.GetHicon());
             GraphNotifyIcon.Icon = System.Drawing.Icon.FromHandle(_graphIconHandle);
@@ -197,7 +199,10 @@ namespace NetworkTrayGraph
                 "Receive: {0}\n" +
                 "Sent: {1}",
                 GenerateSpeedString(_totalReceivedBytesPerSecond),
-                GenerateSpeedString(_totalSentBytesPerSecond)); 
+                GenerateSpeedString(_totalSentBytesPerSecond));
+
+            // Destroy handle to prevent memory leak
+            if (_graphIconHandle != null) DestroyIcon(_graphIconHandle);
         }
 
         #region Overriden functions
