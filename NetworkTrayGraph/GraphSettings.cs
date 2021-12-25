@@ -33,7 +33,7 @@ namespace NetworkTrayGraph
         //public Color SendHighlightColor = Color.DarkRed;
 
         public int UpdateInterval = 10000;
-        public int MaxDisplayValue = 1000;
+        public int MaxDisplayValue = 10000;
         public Dictionary<string, bool> EnabledInterfaces;
 
         public GraphScale Scale = GraphScale.Logarithmic;

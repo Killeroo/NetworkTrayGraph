@@ -98,23 +98,67 @@ namespace NetworkTrayGraph
             int maxYValue = 0;
             if (settings.Scale == GraphScale.Logarithmic)
             {
-                bool scaleUp = false;
-                foreach (var item in sentData)
-                {
-                    if (item > _graphLogarithmicScale[_currentScaleIndex])
-                    {
-                        scaleUp = true;
-                        break;
-                    }
-                }
+                long receiveTotal = 0;
+                long sentTotal = 0;
                 foreach (var item in receiveData)
+                    receiveTotal += item;
+                foreach (var item in sentData)
+                    sentTotal += item;
+
+                bool scaleUp = false;
+                bool scaleDown = false;
+
+                // Only adjust the scale based on the bigger set of data
+                if (receiveTotal > sentTotal)
                 {
-                    if (item > _graphLogarithmicScale[_currentScaleIndex])
+                    foreach (var item in receiveData)
                     {
-                        scaleUp = true;
-                        break;
+                        if (item > _graphLogarithmicScale[_currentScaleIndex])
+                        {
+                            scaleUp = true;
+                            break;
+                        }
+                    }
+
+                    foreach (var item in receiveData)
+                    {
+                        if (item < _graphLogarithmicScale[_currentScaleIndex]/2)
+                        {
+                            scaleDown = true;
+                        }
+                        else
+                        {
+                            scaleDown = false;
+                            break;
+                        }
+                    }
+
+                }
+                else
+                {
+                    foreach (var item in sentData)
+                    {
+                        if (item > _graphLogarithmicScale[_currentScaleIndex])
+                        {
+                            scaleUp = true;
+                            break;
+                        }
+                    }
+
+                    foreach (var item in sentData)
+                    {
+                        if (item < _graphLogarithmicScale[_currentScaleIndex]/2)
+                        {
+                            scaleDown = true;
+                        }
+                        else
+                        {
+                            scaleDown = false;
+                            break;
+                        }
                     }
                 }
+
 
                 if (scaleUp)
                 {
@@ -123,34 +167,7 @@ namespace NetworkTrayGraph
                         _currentScaleIndex++;
                     }
                 }
-
-                bool scaleDown = false;
-                foreach (var item in sentData)
-                {
-                    if (item < _graphLogarithmicScale[_currentScaleIndex])
-                    {
-                        scaleDown = true;
-                    }
-                    else
-                    {
-                        scaleDown = false;
-                        break;
-                    }
-                }
-                foreach (var item in receiveData)
-                {
-                    if (item < _graphLogarithmicScale[_currentScaleIndex])
-                    {
-                        scaleDown = true;
-                    }
-                    else
-                    {
-                        scaleDown = false;
-                        break;
-                    }
-                }
-
-                if (scaleDown)
+                 if (scaleDown)
                 {
                     if (_currentScaleIndex != 0)
                     {
