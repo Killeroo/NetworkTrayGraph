@@ -27,12 +27,12 @@ namespace NetworkTrayGraph
     /// </summary>
     public class GraphSettings
     {
-        public Color ReceiveColor = Color.DarkGreen;
-        public Color SentColor = Color.OrangeRed;
-        //public Color ReceiveHighlightColor = Color.ForestGreen;
-        //public Color SendHighlightColor = Color.DarkRed;
+        public Color ReceivedBodyColor = Color.LightGreen;
+        public Color SentBodyColor = Color.OrangeRed;
+        public Color ReceivedHighlightColor = Color.FromArgb(60, 148, 60);
+        public Color SentHighlightColor = Color.DarkRed;
 
-        public int UpdateInterval = 10000;
+        public int UpdateInterval = 1000;
         public int MaxDisplayValue = 10000;
         public Dictionary<string, bool> EnabledInterfaces;
 
@@ -48,13 +48,21 @@ namespace NetworkTrayGraph
             using (MemoryStream stream = new MemoryStream())
             using (BinaryWriter writer = new BinaryWriter(stream))
             {
-                writer.Write(ReceiveColor.R);
-                writer.Write(ReceiveColor.G);
-                writer.Write(ReceiveColor.B);
+                writer.Write(ReceivedBodyColor.R);
+                writer.Write(ReceivedBodyColor.G);
+                writer.Write(ReceivedBodyColor.B);
 
-                writer.Write(SentColor.R);
-                writer.Write(SentColor.G);
-                writer.Write(SentColor.B);
+                writer.Write(ReceivedHighlightColor.R);
+                writer.Write(ReceivedHighlightColor.G);
+                writer.Write(ReceivedHighlightColor.B);
+
+                writer.Write(SentBodyColor.R);
+                writer.Write(SentBodyColor.G);
+                writer.Write(SentBodyColor.B);
+
+                writer.Write(SentHighlightColor.R);
+                writer.Write(SentHighlightColor.G);
+                writer.Write(SentHighlightColor.B);
 
                 writer.Write(UpdateInterval);
                 writer.Write(MaxDisplayValue);
@@ -77,15 +85,25 @@ namespace NetworkTrayGraph
             using (MemoryStream stream = new MemoryStream(convertedData))
             using (BinaryReader reader = new BinaryReader(stream))
             {
-                byte receiveColorR = reader.ReadByte();
-                byte receiveColorG = reader.ReadByte();
-                byte receiveColorB = reader.ReadByte();
-                ReceiveColor = Color.FromArgb(receiveColorR, receiveColorG, receiveColorB);
+                byte receivedBodyColorR = reader.ReadByte();
+                byte receivedBodyColorG = reader.ReadByte();
+                byte receivedBodyColorB = reader.ReadByte();
+                ReceivedBodyColor = Color.FromArgb(receivedBodyColorR, receivedBodyColorG, receivedBodyColorB);
+
+                byte receivedHighlightColorR = reader.ReadByte();
+                byte receivedHighlightColorG = reader.ReadByte();
+                byte receivedHighlightColorB = reader.ReadByte();
+                ReceivedHighlightColor = Color.FromArgb(receivedHighlightColorR, receivedHighlightColorG, receivedHighlightColorB);
 
                 byte sentColorR = reader.ReadByte();
                 byte sentColorG = reader.ReadByte();
                 byte sentColorB = reader.ReadByte();
-                SentColor = Color.FromArgb(sentColorR, sentColorG, sentColorB);
+                SentBodyColor = Color.FromArgb(sentColorR, sentColorG, sentColorB);
+
+                byte sentHighlightColorR = reader.ReadByte();
+                byte sentHighlightColorG = reader.ReadByte();
+                byte sentHighlightColorB = reader.ReadByte();
+                SentHighlightColor = Color.FromArgb(sentHighlightColorR, sentHighlightColorG, sentHighlightColorB);
 
                 UpdateInterval = reader.ReadInt32();
                 MaxDisplayValue = reader.ReadInt32();

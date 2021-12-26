@@ -38,22 +38,16 @@ namespace NetworkTrayGraph
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.ExitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.UpdateTimer = new System.Windows.Forms.Timer(this.components);
-            this.ReceiveColorTextBox = new System.Windows.Forms.TextBox();
             this.InterfacesTreeView = new System.Windows.Forms.TreeView();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.SendColorTextBox = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.PreviewPictureBox = new System.Windows.Forms.PictureBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.ReceiveColorEditButton = new System.Windows.Forms.Button();
             this.InterfaceCheckTimer = new System.Windows.Forms.Timer(this.components);
             this.ApplyButton = new System.Windows.Forms.Button();
             this.CancelButton = new System.Windows.Forms.Button();
             this.UpdateIntervalNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.SendColorEditButton = new System.Windows.Forms.Button();
             this.ColorPickerDialog = new System.Windows.Forms.ColorDialog();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.LinearRadioButton = new System.Windows.Forms.RadioButton();
@@ -61,6 +55,22 @@ namespace NetworkTrayGraph
             this.MaxGraphYValueNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.TooltipTextBox = new System.Windows.Forms.TextBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.ReceivedHighlightColorEditButton = new System.Windows.Forms.Button();
+            this.label10 = new System.Windows.Forms.Label();
+            this.ReceivedHighlightColorTextBox = new System.Windows.Forms.TextBox();
+            this.ReceivedBodyColorEditButton = new System.Windows.Forms.Button();
+            this.label9 = new System.Windows.Forms.Label();
+            this.ReceivedBodyColorTextBox = new System.Windows.Forms.TextBox();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.SentHighlightColorEditButton = new System.Windows.Forms.Button();
+            this.label11 = new System.Windows.Forms.Label();
+            this.SentHighlightColorTextBox = new System.Windows.Forms.TextBox();
+            this.SentBodyColorEditButton = new System.Windows.Forms.Button();
+            this.label12 = new System.Windows.Forms.Label();
+            this.SentBodyColorTextBox = new System.Windows.Forms.TextBox();
             this.NotifyIconContextMenuStrip.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PreviewPictureBox)).BeginInit();
@@ -68,6 +78,9 @@ namespace NetworkTrayGraph
             ((System.ComponentModel.ISupportInitialize)(this.UpdateIntervalNumericUpDown)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MaxGraphYValueNumericUpDown)).BeginInit();
+            this.groupBox4.SuspendLayout();
+            this.groupBox5.SuspendLayout();
+            this.groupBox6.SuspendLayout();
             this.SuspendLayout();
             // 
             // GraphNotifyIcon
@@ -76,6 +89,7 @@ namespace NetworkTrayGraph
             this.GraphNotifyIcon.Text = "notifyIcon1";
             this.GraphNotifyIcon.Visible = true;
             this.GraphNotifyIcon.DoubleClick += new System.EventHandler(this.GraphNotifyIcon_DoubleClick);
+            this.GraphNotifyIcon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.GraphNotifyIcon_Click);
             // 
             // NotifyIconContextMenuStrip
             // 
@@ -126,53 +140,19 @@ namespace NetworkTrayGraph
             this.UpdateTimer.Interval = 1000;
             this.UpdateTimer.Tick += new System.EventHandler(this.UpdateTimer_OnTick);
             // 
-            // ReceiveColorTextBox
-            // 
-            this.ReceiveColorTextBox.Enabled = false;
-            this.ReceiveColorTextBox.Location = new System.Drawing.Point(96, 42);
-            this.ReceiveColorTextBox.Name = "ReceiveColorTextBox";
-            this.ReceiveColorTextBox.Size = new System.Drawing.Size(47, 20);
-            this.ReceiveColorTextBox.TabIndex = 5;
-            // 
             // InterfacesTreeView
             // 
             this.InterfacesTreeView.CheckBoxes = true;
             this.InterfacesTreeView.Location = new System.Drawing.Point(6, 14);
             this.InterfacesTreeView.Name = "InterfacesTreeView";
-            this.InterfacesTreeView.Size = new System.Drawing.Size(273, 99);
+            this.InterfacesTreeView.Size = new System.Drawing.Size(279, 99);
             this.InterfacesTreeView.TabIndex = 7;
             this.InterfacesTreeView.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.InterfacesTreeView_AfterCheck);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(14, 46);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(80, 13);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "Received Color";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(29, 72);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(56, 13);
-            this.label2.TabIndex = 11;
-            this.label2.Text = "Sent Color";
-            // 
-            // SendColorTextBox
-            // 
-            this.SendColorTextBox.Enabled = false;
-            this.SendColorTextBox.Location = new System.Drawing.Point(96, 68);
-            this.SendColorTextBox.Name = "SendColorTextBox";
-            this.SendColorTextBox.Size = new System.Drawing.Size(47, 20);
-            this.SendColorTextBox.TabIndex = 9;
             // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.PreviewPictureBox);
-            this.groupBox2.Location = new System.Drawing.Point(210, 7);
+            this.groupBox2.Location = new System.Drawing.Point(212, 38);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(87, 92);
             this.groupBox2.TabIndex = 14;
@@ -191,9 +171,9 @@ namespace NetworkTrayGraph
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.InterfacesTreeView);
-            this.groupBox3.Location = new System.Drawing.Point(12, 177);
+            this.groupBox3.Location = new System.Drawing.Point(8, 289);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(285, 124);
+            this.groupBox3.Size = new System.Drawing.Size(291, 124);
             this.groupBox3.TabIndex = 18;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Available Interfaces";
@@ -201,7 +181,7 @@ namespace NetworkTrayGraph
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(9, 20);
+            this.label7.Location = new System.Drawing.Point(16, 14);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(79, 13);
             this.label7.TabIndex = 24;
@@ -210,21 +190,11 @@ namespace NetworkTrayGraph
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(164, 20);
+            this.label8.Location = new System.Drawing.Point(185, 14);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(20, 13);
             this.label8.TabIndex = 26;
             this.label8.Text = "ms";
-            // 
-            // ReceiveColorEditButton
-            // 
-            this.ReceiveColorEditButton.Location = new System.Drawing.Point(149, 41);
-            this.ReceiveColorEditButton.Name = "ReceiveColorEditButton";
-            this.ReceiveColorEditButton.Size = new System.Drawing.Size(55, 23);
-            this.ReceiveColorEditButton.TabIndex = 27;
-            this.ReceiveColorEditButton.Text = "Edit";
-            this.ReceiveColorEditButton.UseVisualStyleBackColor = true;
-            this.ReceiveColorEditButton.Click += new System.EventHandler(this.ReceiveColorEditButton_Click);
             // 
             // InterfaceCheckTimer
             // 
@@ -234,7 +204,7 @@ namespace NetworkTrayGraph
             // 
             // ApplyButton
             // 
-            this.ApplyButton.Location = new System.Drawing.Point(143, 307);
+            this.ApplyButton.Location = new System.Drawing.Point(137, 420);
             this.ApplyButton.Name = "ApplyButton";
             this.ApplyButton.Size = new System.Drawing.Size(75, 23);
             this.ApplyButton.TabIndex = 29;
@@ -244,7 +214,7 @@ namespace NetworkTrayGraph
             // 
             // CancelButton
             // 
-            this.CancelButton.Location = new System.Drawing.Point(224, 307);
+            this.CancelButton.Location = new System.Drawing.Point(218, 420);
             this.CancelButton.Name = "CancelButton";
             this.CancelButton.Size = new System.Drawing.Size(75, 23);
             this.CancelButton.TabIndex = 30;
@@ -259,7 +229,7 @@ namespace NetworkTrayGraph
             0,
             0,
             0});
-            this.UpdateIntervalNumericUpDown.Location = new System.Drawing.Point(96, 16);
+            this.UpdateIntervalNumericUpDown.Location = new System.Drawing.Point(101, 12);
             this.UpdateIntervalNumericUpDown.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -271,23 +241,14 @@ namespace NetworkTrayGraph
             0,
             0});
             this.UpdateIntervalNumericUpDown.Name = "UpdateIntervalNumericUpDown";
-            this.UpdateIntervalNumericUpDown.Size = new System.Drawing.Size(60, 20);
+            this.UpdateIntervalNumericUpDown.Size = new System.Drawing.Size(78, 20);
             this.UpdateIntervalNumericUpDown.TabIndex = 33;
+            this.UpdateIntervalNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.UpdateIntervalNumericUpDown.Value = new decimal(new int[] {
             1000,
             0,
             0,
             0});
-            // 
-            // SendColorEditButton
-            // 
-            this.SendColorEditButton.Location = new System.Drawing.Point(149, 67);
-            this.SendColorEditButton.Name = "SendColorEditButton";
-            this.SendColorEditButton.Size = new System.Drawing.Size(55, 23);
-            this.SendColorEditButton.TabIndex = 34;
-            this.SendColorEditButton.Text = "Edit";
-            this.SendColorEditButton.UseVisualStyleBackColor = true;
-            this.SendColorEditButton.Click += new System.EventHandler(this.SendColorEditButton_Click);
             // 
             // groupBox1
             // 
@@ -296,9 +257,9 @@ namespace NetworkTrayGraph
             this.groupBox1.Controls.Add(this.MaxGraphYValueNumericUpDown);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Location = new System.Drawing.Point(12, 99);
+            this.groupBox1.Location = new System.Drawing.Point(8, 211);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(285, 72);
+            this.groupBox1.Size = new System.Drawing.Size(291, 72);
             this.groupBox1.TabIndex = 35;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Graph scale";
@@ -324,6 +285,7 @@ namespace NetworkTrayGraph
             this.LogarithmicRadioButton.TabStop = true;
             this.LogarithmicRadioButton.Text = "Logarithmic";
             this.LogarithmicRadioButton.UseVisualStyleBackColor = true;
+            this.LogarithmicRadioButton.CheckedChanged += new System.EventHandler(this.LogarithmicRadioButton_CheckedChanged);
             // 
             // MaxGraphYValueNumericUpDown
             // 
@@ -360,25 +322,179 @@ namespace NetworkTrayGraph
             this.label5.TabIndex = 24;
             this.label5.Text = "Max Y value";
             // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.TooltipTextBox);
+            this.groupBox4.Location = new System.Drawing.Point(212, 136);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(87, 69);
+            this.groupBox4.TabIndex = 42;
+            this.groupBox4.TabStop = false;
+            // 
+            // TooltipTextBox
+            // 
+            this.TooltipTextBox.Location = new System.Drawing.Point(6, 13);
+            this.TooltipTextBox.Multiline = true;
+            this.TooltipTextBox.Name = "TooltipTextBox";
+            this.TooltipTextBox.ReadOnly = true;
+            this.TooltipTextBox.Size = new System.Drawing.Size(75, 49);
+            this.TooltipTextBox.TabIndex = 0;
+            this.TooltipTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.ReceivedHighlightColorEditButton);
+            this.groupBox5.Controls.Add(this.label10);
+            this.groupBox5.Controls.Add(this.ReceivedHighlightColorTextBox);
+            this.groupBox5.Controls.Add(this.ReceivedBodyColorEditButton);
+            this.groupBox5.Controls.Add(this.label9);
+            this.groupBox5.Controls.Add(this.ReceivedBodyColorTextBox);
+            this.groupBox5.Location = new System.Drawing.Point(8, 38);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(192, 78);
+            this.groupBox5.TabIndex = 43;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Receive Colors";
+            // 
+            // ReceivedHighlightColorEditButton
+            // 
+            this.ReceivedHighlightColorEditButton.Location = new System.Drawing.Point(131, 48);
+            this.ReceivedHighlightColorEditButton.Name = "ReceivedHighlightColorEditButton";
+            this.ReceivedHighlightColorEditButton.Size = new System.Drawing.Size(55, 20);
+            this.ReceivedHighlightColorEditButton.TabIndex = 33;
+            this.ReceivedHighlightColorEditButton.Text = "Edit";
+            this.ReceivedHighlightColorEditButton.UseVisualStyleBackColor = true;
+            this.ReceivedHighlightColorEditButton.Click += new System.EventHandler(this.ReceivedHighlightColorEditButton_Click);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(3, 51);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(48, 13);
+            this.label10.TabIndex = 32;
+            this.label10.Text = "Highlight";
+            // 
+            // ReceivedHighlightColorTextBox
+            // 
+            this.ReceivedHighlightColorTextBox.Enabled = false;
+            this.ReceivedHighlightColorTextBox.Location = new System.Drawing.Point(54, 48);
+            this.ReceivedHighlightColorTextBox.Name = "ReceivedHighlightColorTextBox";
+            this.ReceivedHighlightColorTextBox.Size = new System.Drawing.Size(71, 20);
+            this.ReceivedHighlightColorTextBox.TabIndex = 31;
+            // 
+            // ReceivedBodyColorEditButton
+            // 
+            this.ReceivedBodyColorEditButton.Location = new System.Drawing.Point(131, 19);
+            this.ReceivedBodyColorEditButton.Name = "ReceivedBodyColorEditButton";
+            this.ReceivedBodyColorEditButton.Size = new System.Drawing.Size(55, 20);
+            this.ReceivedBodyColorEditButton.TabIndex = 30;
+            this.ReceivedBodyColorEditButton.Text = "Edit";
+            this.ReceivedBodyColorEditButton.UseVisualStyleBackColor = true;
+            this.ReceivedBodyColorEditButton.Click += new System.EventHandler(this.ReceivedBodyColorEditButton_Click);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(20, 22);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(31, 13);
+            this.label9.TabIndex = 29;
+            this.label9.Text = "Body";
+            // 
+            // ReceivedBodyColorTextBox
+            // 
+            this.ReceivedBodyColorTextBox.Enabled = false;
+            this.ReceivedBodyColorTextBox.Location = new System.Drawing.Point(54, 19);
+            this.ReceivedBodyColorTextBox.Name = "ReceivedBodyColorTextBox";
+            this.ReceivedBodyColorTextBox.Size = new System.Drawing.Size(71, 20);
+            this.ReceivedBodyColorTextBox.TabIndex = 28;
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.SentHighlightColorEditButton);
+            this.groupBox6.Controls.Add(this.label11);
+            this.groupBox6.Controls.Add(this.SentHighlightColorTextBox);
+            this.groupBox6.Controls.Add(this.SentBodyColorEditButton);
+            this.groupBox6.Controls.Add(this.label12);
+            this.groupBox6.Controls.Add(this.SentBodyColorTextBox);
+            this.groupBox6.Location = new System.Drawing.Point(8, 122);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(192, 83);
+            this.groupBox6.TabIndex = 44;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Sent Colors";
+            // 
+            // SentHighlightColorEditButton
+            // 
+            this.SentHighlightColorEditButton.Location = new System.Drawing.Point(131, 52);
+            this.SentHighlightColorEditButton.Name = "SentHighlightColorEditButton";
+            this.SentHighlightColorEditButton.Size = new System.Drawing.Size(55, 20);
+            this.SentHighlightColorEditButton.TabIndex = 33;
+            this.SentHighlightColorEditButton.Text = "Edit";
+            this.SentHighlightColorEditButton.UseVisualStyleBackColor = true;
+            this.SentHighlightColorEditButton.Click += new System.EventHandler(this.SentHighlightColorEditButton_Click);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(3, 56);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(48, 13);
+            this.label11.TabIndex = 32;
+            this.label11.Text = "Highlight";
+            // 
+            // SentHighlightColorTextBox
+            // 
+            this.SentHighlightColorTextBox.Enabled = false;
+            this.SentHighlightColorTextBox.Location = new System.Drawing.Point(54, 52);
+            this.SentHighlightColorTextBox.Name = "SentHighlightColorTextBox";
+            this.SentHighlightColorTextBox.Size = new System.Drawing.Size(71, 20);
+            this.SentHighlightColorTextBox.TabIndex = 31;
+            // 
+            // SentBodyColorEditButton
+            // 
+            this.SentBodyColorEditButton.Location = new System.Drawing.Point(131, 23);
+            this.SentBodyColorEditButton.Name = "SentBodyColorEditButton";
+            this.SentBodyColorEditButton.Size = new System.Drawing.Size(55, 20);
+            this.SentBodyColorEditButton.TabIndex = 30;
+            this.SentBodyColorEditButton.Text = "Edit";
+            this.SentBodyColorEditButton.UseVisualStyleBackColor = true;
+            this.SentBodyColorEditButton.Click += new System.EventHandler(this.SentBodyColorEditButton_Click);
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(20, 26);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(31, 13);
+            this.label12.TabIndex = 29;
+            this.label12.Text = "Body";
+            // 
+            // SentBodyColorTextBox
+            // 
+            this.SentBodyColorTextBox.Enabled = false;
+            this.SentBodyColorTextBox.Location = new System.Drawing.Point(54, 23);
+            this.SentBodyColorTextBox.Name = "SentBodyColorTextBox";
+            this.SentBodyColorTextBox.Size = new System.Drawing.Size(71, 20);
+            this.SentBodyColorTextBox.TabIndex = 28;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(311, 338);
+            this.ClientSize = new System.Drawing.Size(311, 455);
+            this.Controls.Add(this.groupBox6);
+            this.Controls.Add(this.groupBox5);
+            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.SendColorEditButton);
             this.Controls.Add(this.UpdateIntervalNumericUpDown);
             this.Controls.Add(this.CancelButton);
             this.Controls.Add(this.ApplyButton);
-            this.Controls.Add(this.ReceiveColorEditButton);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.SendColorTextBox);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.ReceiveColorTextBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.MaximizeBox = false;
             this.Name = "MainForm";
@@ -394,6 +510,12 @@ namespace NetworkTrayGraph
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MaxGraphYValueNumericUpDown)).EndInit();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -409,22 +531,16 @@ namespace NetworkTrayGraph
         private System.Windows.Forms.ToolStripMenuItem SettingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem ExitToolStripMenuItem;
-        private System.Windows.Forms.TextBox ReceiveColorTextBox;
         private System.Windows.Forms.TreeView InterfacesTreeView;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox SendColorTextBox;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.PictureBox PreviewPictureBox;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Button ReceiveColorEditButton;
         private System.Windows.Forms.Timer InterfaceCheckTimer;
         private System.Windows.Forms.Button ApplyButton;
         private System.Windows.Forms.Button CancelButton;
         private System.Windows.Forms.NumericUpDown UpdateIntervalNumericUpDown;
-        private System.Windows.Forms.Button SendColorEditButton;
         private System.Windows.Forms.ColorDialog ColorPickerDialog;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton LinearRadioButton;
@@ -432,6 +548,22 @@ namespace NetworkTrayGraph
         private System.Windows.Forms.NumericUpDown MaxGraphYValueNumericUpDown;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.TextBox TooltipTextBox;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.Button ReceivedHighlightColorEditButton;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox ReceivedHighlightColorTextBox;
+        private System.Windows.Forms.Button ReceivedBodyColorEditButton;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox ReceivedBodyColorTextBox;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.Button SentHighlightColorEditButton;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox SentHighlightColorTextBox;
+        private System.Windows.Forms.Button SentBodyColorEditButton;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox SentBodyColorTextBox;
     }
 }
 

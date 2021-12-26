@@ -60,6 +60,7 @@ namespace NetworkTrayGraph
             _graphSettings.EnabledInterfaces = _monitor.GetAvailableInterfaceNames().ToDictionary(i => i, x => true);
             UpdateAvailableInterfacesListView();
 
+
             if (!string.IsNullOrEmpty(Properties.Settings.Default.SettingDataString))
             {
                 // Try and load graph settings from program settings
@@ -86,7 +87,7 @@ namespace NetworkTrayGraph
                 bytes += currentBytes[i] - lastBytes[i];
             }
 
-            throughputQueue.Enqueue(bytes);
+            throughputQueue.Enqueue(Math.Abs(bytes));
 
             if (throughputQueue.Count > 14)
                 throughputQueue.Dequeue();
@@ -131,8 +132,10 @@ namespace NetworkTrayGraph
         private void PopulateUiFromSettings()
         {
             UpdateIntervalNumericUpDown.Value = _graphSettings.UpdateInterval;
-            ReceiveColorTextBox.BackColor = _graphSettings.ReceiveColor;
-            SendColorTextBox.BackColor = _graphSettings.SentColor;
+            ReceivedBodyColorTextBox.BackColor = _graphSettings.ReceivedBodyColor;
+            ReceivedHighlightColorTextBox.BackColor = _graphSettings.ReceivedHighlightColor;
+            SentBodyColorTextBox.BackColor = _graphSettings.SentBodyColor;
+            SentHighlightColorTextBox.BackColor = _graphSettings.SentHighlightColor;
             LinearRadioButton.Checked = _graphSettings.Scale == GraphScale.Linear ? true : false;
             LogarithmicRadioButton.Checked = _graphSettings.Scale == GraphScale.Logarithmic ? true : false;
             MaxGraphYValueNumericUpDown.Value = _graphSettings.MaxDisplayValue;
@@ -145,8 +148,10 @@ namespace NetworkTrayGraph
         private void PopulateSettingsFromUi()
         {
             _graphSettings.UpdateInterval = Convert.ToInt32(UpdateIntervalNumericUpDown.Value);
-            _graphSettings.ReceiveColor = ReceiveColorTextBox.BackColor;
-            _graphSettings.SentColor = SendColorTextBox.BackColor;
+            _graphSettings.ReceivedBodyColor = ReceivedBodyColorTextBox.BackColor;
+            _graphSettings.ReceivedHighlightColor = ReceivedHighlightColorTextBox.BackColor;
+            _graphSettings.SentBodyColor = SentBodyColorTextBox.BackColor;
+            _graphSettings.SentHighlightColor = SentHighlightColorTextBox.BackColor;
             _graphSettings.Scale = LinearRadioButton.Checked ? GraphScale.Linear : GraphScale.Logarithmic;
             _graphSettings.MaxDisplayValue = Convert.ToInt32(MaxGraphYValueNumericUpDown.Value);
         }
@@ -194,15 +199,21 @@ namespace NetworkTrayGraph
 
             // Update preview
             PreviewPictureBox.Image = new Bitmap(_graphIconBitmap, new Size(64, 64));
+            TooltipTextBox.Text = string.Format(
+                "R: {0}" + Environment.NewLine + 
+                "S: {1}",
+                GenerateSpeedString(_totalReceivedBytesPerSecond),
+                GenerateSpeedString(_totalSentBytesPerSecond));
 
             // Update NotifyIcon with graph and tooltip text
-            _graphIconHandle = (_graphIconBitmap.GetHicon());
-            GraphNotifyIcon.Icon = System.Drawing.Icon.FromHandle(_graphIconHandle);
-            GraphNotifyIcon.Text = string.Format(
+            string tooltipText = string.Format(
                 "Received: {0}\n" +
                 "Sent: {1}",
                 GenerateSpeedString(_totalReceivedBytesPerSecond),
                 GenerateSpeedString(_totalSentBytesPerSecond));
+            _graphIconHandle = (_graphIconBitmap.GetHicon());
+            GraphNotifyIcon.Icon = System.Drawing.Icon.FromHandle(_graphIconHandle);
+            GraphNotifyIcon.Text = tooltipText;
 
             // Destroy handle to prevent memory leak
             if (_graphIconHandle != null) DestroyIcon(_graphIconHandle);
@@ -272,6 +283,8 @@ namespace NetworkTrayGraph
         {
             PopulateSettingsFromUi();
 
+            UpdateTimer.Interval = _graphSettings.UpdateInterval;
+
             // Save the settings data
             Properties.Settings.Default.SettingDataString = _graphSettings.ToString();
             Properties.Settings.Default.Save();
@@ -291,32 +304,11 @@ namespace NetworkTrayGraph
             _graphSettings.EnabledInterfaces[e.Node.Text] = e.Node.Checked;
         }
 
-        private void ReceiveColorEditButton_Click(object sender, EventArgs e)
+        private void LogarithmicRadioButton_CheckedChanged(object sender, EventArgs e)
         {
-            ColorPickerDialog = new ColorDialog();
-            ColorPickerDialog.Color = ReceiveColorTextBox.BackColor;
-            ColorPickerDialog.AllowFullOpen = true;
-            ColorPickerDialog.FullOpen = true;
-            //colorDialog.StartPosition = FormStartPosition.CenterParent;
-
-            if (ColorPickerDialog.ShowDialog(this) == DialogResult.OK)
-            {
-                ReceiveColorTextBox.BackColor = ColorPickerDialog.Color;
-            }
-        }
-
-        private void SendColorEditButton_Click(object sender, EventArgs e)
-        {
-            ColorPickerDialog = new ColorDialog();
-            ColorPickerDialog.Color = SendColorTextBox.BackColor;
-            ColorPickerDialog.AllowFullOpen = true;
-            ColorPickerDialog.FullOpen = true;
-            //colorDialog.StartPosition = FormStartPosition.CenterParent;
-
-            if (ColorPickerDialog.ShowDialog(this) == DialogResult.OK)
-            {
-                SendColorTextBox.BackColor = ColorPickerDialog.Color;
-            }
+            label5.Enabled = !LogarithmicRadioButton.Checked;
+            label6.Enabled = !LogarithmicRadioButton.Checked;
+            MaxGraphYValueNumericUpDown.Enabled = !LogarithmicRadioButton.Checked;
         }
 
         private void SettingsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -337,6 +329,71 @@ namespace NetworkTrayGraph
             Show();
         }
 
+        private void GraphNotifyIcon_Click(object sender, MouseEventArgs e)
+        {
+            _allowVisible = true;
+            Show();
+        }
+
+
+        private void SentBodyColorEditButton_Click(object sender, EventArgs e)
+        {
+            ColorPickerDialog = new ColorDialog();
+            ColorPickerDialog.Color = SentBodyColorTextBox.BackColor;
+            ColorPickerDialog.AllowFullOpen = true;
+            ColorPickerDialog.FullOpen = true;
+            //colorDialog.StartPosition = FormStartPosition.CenterParent;
+
+            if (ColorPickerDialog.ShowDialog(this) == DialogResult.OK)
+            {
+                SentBodyColorTextBox.BackColor = ColorPickerDialog.Color;
+            }
+        }
+
+        private void SentHighlightColorEditButton_Click(object sender, EventArgs e)
+        {
+            ColorPickerDialog = new ColorDialog();
+            ColorPickerDialog.Color = SentHighlightColorTextBox.BackColor;
+            ColorPickerDialog.AllowFullOpen = true;
+            ColorPickerDialog.FullOpen = true;
+            //colorDialog.StartPosition = FormStartPosition.CenterParent;
+
+            if (ColorPickerDialog.ShowDialog(this) == DialogResult.OK)
+            {
+                ReceivedHighlightColorTextBox.BackColor = ColorPickerDialog.Color;
+            }
+        }
+
+        private void ReceivedBodyColorEditButton_Click(object sender, EventArgs e)
+        {
+            ColorPickerDialog = new ColorDialog();
+            ColorPickerDialog.Color = ReceivedBodyColorTextBox.BackColor;
+            ColorPickerDialog.AllowFullOpen = true;
+            ColorPickerDialog.FullOpen = true;
+            //colorDialog.StartPosition = FormStartPosition.CenterParent;
+
+            if (ColorPickerDialog.ShowDialog(this) == DialogResult.OK)
+            {
+                ReceivedBodyColorTextBox.BackColor = ColorPickerDialog.Color;
+            }
+        }
+
+        private void ReceivedHighlightColorEditButton_Click(object sender, EventArgs e)
+        {
+            ColorPickerDialog = new ColorDialog();
+            ColorPickerDialog.Color = ReceivedHighlightColorTextBox.BackColor;
+            ColorPickerDialog.AllowFullOpen = true;
+            ColorPickerDialog.FullOpen = true;
+            //colorDialog.StartPosition = FormStartPosition.CenterParent;
+
+            if (ColorPickerDialog.ShowDialog(this) == DialogResult.OK)
+            {
+                ReceivedHighlightColorTextBox.BackColor = ColorPickerDialog.Color;
+            }
+        }
+
+
         #endregion
+
     }
 }

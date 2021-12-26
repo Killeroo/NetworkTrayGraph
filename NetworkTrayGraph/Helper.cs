@@ -10,6 +10,8 @@ namespace NetworkTrayGraph
     {
         public static float Map(float value, float valueMin, float valueMax, float outMin, float outMax)
         {
+            if (value > valueMax) return outMax;
+
             return (value - valueMin) / (valueMax - valueMin) * (outMax - outMin) + outMin;
         }
 
