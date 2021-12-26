@@ -165,198 +165,8 @@ namespace NetworkTrayGraph
             graphics.FillRectangle(Brushes.White, new Rectangle(new Point(0, 0), new Size(15, 15)));
             graphics.DrawRectangle(borderPen, new Rectangle(new Point(0, 0), new Size(15, 15)));
 
-            //DrawColumns(receivedData, settings, maxYValue, settings.ReceivedBodyColor, settings.ReceivedHighlightColor, ref pic);
-            //DrawColumns(sentData, settings, maxYValue, settings.SentBodyColor, settings.SentHighlightColor, ref pic);
-
-            // Draw each graph column
-            int currentCol = 0;
-            for (int i = 0; i < receivedData.Count; i++)
-            {
-                long item = receivedData[i];
-                int columnSize = 0;
-
-                // Work out size of column
-                if (item > maxYValue)
-                    columnSize = GRAPH_MAX_COLUMN_SIZE - 1; // - 1 pixels to stop the column from drawing over the border
-                else
-                    columnSize = (int)Math.Round(Helper.Map(item, 0, maxYValue, 0, GRAPH_MAX_COLUMN_SIZE));
-
-                // Draw column to bitmap 
-                for (int y = 0; y < columnSize; y++)
-                {
-                    pic.SetPixel(GRAPH_AREA_START_X + currentCol, 14 - y, settings.ReceivedBodyColor);
-                }
-
-                // A really obtuse way of drawing a highlight around the group
-                int highlightColumnSize = 0;
-                int highlightColumnStart = 0;
-                if (i == 0 && receivedData.Count > 1)
-                {
-                    if (receivedData[i] > receivedData[i + 1])
-                    {
-                        if (receivedData[i + 1] == 0)
-                        {
-                            highlightColumnSize = (int)Math.Round(Helper.Map(receivedData[i], 0, maxYValue, 0, GRAPH_MAX_COLUMN_SIZE));
-                            highlightColumnStart = 0;
-                        }
-                        else
-                        {
-                            int nextColumnSize = (int)Math.Round(Helper.Map(receivedData[i + 1], 0, maxYValue, 0, GRAPH_MAX_COLUMN_SIZE));
-                            highlightColumnSize = columnSize - nextColumnSize;
-                            highlightColumnStart = nextColumnSize;
-                        }
-                    }
-                }
-                else if (i == receivedData.Count - 1 && receivedData.Count > 1)
-                {
-                    if (receivedData[i] > receivedData[i - 1])
-                    {
-                        int nextColumnSize = (int)Math.Round(Helper.Map(receivedData[i - 1], 0, maxYValue, 0, GRAPH_MAX_COLUMN_SIZE));
-                        highlightColumnSize = columnSize - nextColumnSize;
-                        highlightColumnStart = nextColumnSize;
-                    }
-                }
-                else if (receivedData.Count > 2)
-                {
-                    if (receivedData[i - 1] < receivedData[i] && receivedData[i] > receivedData[i + 1])
-                    {
-                        if (receivedData[i - 1] < receivedData[i + 1])
-                        {
-                            int nextColumnSize = (int)Math.Round(Helper.Map(receivedData[i - 1], 0, maxYValue, 0, GRAPH_MAX_COLUMN_SIZE));
-                            highlightColumnSize = columnSize - nextColumnSize;
-                            highlightColumnStart = nextColumnSize;
-                        }
-                        else
-                        {
-                            int nextColumnSize = (int)Math.Round(Helper.Map(receivedData[i + 1], 0, maxYValue, 0, GRAPH_MAX_COLUMN_SIZE));
-                            highlightColumnSize = columnSize - nextColumnSize;
-                            highlightColumnStart = nextColumnSize;
-                        }
-                    }
-                    else if (receivedData[i - 1] < receivedData[i])
-                    {
-                        int nextColumnSize = (int)Math.Round(Helper.Map(receivedData[i - 1], 0, maxYValue, 0, GRAPH_MAX_COLUMN_SIZE));
-                        highlightColumnSize = columnSize - nextColumnSize;
-                        highlightColumnStart = nextColumnSize;
-                    }
-                    else if (receivedData[i] > receivedData[i + 1])
-                    {
-                        int nextColumnSize = (int)Math.Round(Helper.Map(receivedData[i + 1], 0, maxYValue, 0, GRAPH_MAX_COLUMN_SIZE));
-                        highlightColumnSize = columnSize - nextColumnSize;
-                        highlightColumnStart = nextColumnSize;
-                    }
-                }
-
-                // Draw the highlight around the graph
-                for (int y = 0; y < highlightColumnSize; y++)
-                {
-                    pic.SetPixel(GRAPH_AREA_START_X + currentCol, (14 - highlightColumnStart) - y, settings.ReceivedHighlightColor);
-                }
-
-                // always add a highlight at the top of any column
-                if (columnSize > 0)
-                    pic.SetPixel(GRAPH_AREA_START_X + currentCol, 14 - (columnSize - 1), settings.ReceivedHighlightColor);
-
-                if (columnSize > 1)
-                    pic.SetPixel(GRAPH_AREA_START_X + currentCol, 14 - (columnSize - 2), settings.ReceivedHighlightColor);
-
-                currentCol++;
-            }
-
-            // Draw each graph column
-            currentCol = 0;
-            for (int i = 0; i < sentData.Count; i++)
-            {
-                long item = sentData[i];
-                int columnSize = 0;
-
-                // Work out size of column
-                if (item > maxYValue)
-                    columnSize = GRAPH_MAX_COLUMN_SIZE - 1;
-                else
-                    columnSize = (int)Math.Round(Helper.Map(item, 0, maxYValue, 0, GRAPH_MAX_COLUMN_SIZE));
-
-                for (int y = 0; y < columnSize; y++)
-                {
-                    pic.SetPixel(GRAPH_AREA_START_X + currentCol, 14 - y, settings.SentBodyColor);
-                }
-
-                int highlightColumnSize = 0;
-                int highlightColumnStart = 0;
-                if (i == 0 && sentData.Count > 1)
-                {
-                    if (sentData[i] > sentData[i + 1])
-                    {
-                        if (sentData[i + 1] == 0)
-                        {
-                            highlightColumnSize = (int)Math.Round(Helper.Map(sentData[i], 0, maxYValue, 0, GRAPH_MAX_COLUMN_SIZE));
-                            highlightColumnStart = 0;
-                        }
-                        else
-                        {
-                            int nextColumnSize = (int)Math.Round(Helper.Map(sentData[i + 1], 0, maxYValue, 0, GRAPH_MAX_COLUMN_SIZE));
-                            highlightColumnSize = columnSize - nextColumnSize;
-                            highlightColumnStart = nextColumnSize;
-                        }
-                    }
-                }
-                else if (i == sentData.Count - 1 && sentData.Count > 1)
-                {
-                    if (sentData[i] > sentData[i - 1])
-                    {
-                        int nextColumnSize = (int)Math.Round(Helper.Map(sentData[i - 1], 0, maxYValue, 0, GRAPH_MAX_COLUMN_SIZE));
-                        highlightColumnSize = columnSize - nextColumnSize;
-                        highlightColumnStart = nextColumnSize;
-                    }
-                }
-                else if (sentData.Count > 2)
-                {
-                    if (sentData[i - 1] < sentData[i] && sentData[i] > sentData[i + 1])
-                    {
-                        if (sentData[i - 1] < sentData[i + 1])
-                        {
-                            int nextColumnSize = (int)Math.Round(Helper.Map(sentData[i - 1], 0, maxYValue, 0, GRAPH_MAX_COLUMN_SIZE));
-                            highlightColumnSize = columnSize - nextColumnSize;
-                            highlightColumnStart = nextColumnSize;
-
-                        }
-                        else
-                        {
-                            int nextColumnSize = (int)Math.Round(Helper.Map(sentData[i + 1], 0, maxYValue, 0, GRAPH_MAX_COLUMN_SIZE));
-                            highlightColumnSize = columnSize - nextColumnSize;
-                            highlightColumnStart = nextColumnSize;
-                        }
-                    }
-                    else if (sentData[i - 1] < sentData[i])
-                    {
-                        int nextColumnSize = (int)Math.Round(Helper.Map(sentData[i - 1], 0, maxYValue, 0, GRAPH_MAX_COLUMN_SIZE));
-                        highlightColumnSize = columnSize - nextColumnSize;
-                        highlightColumnStart = nextColumnSize;
-                    }
-                    else if (sentData[i] > sentData[i + 1])
-                    {
-                        int nextColumnSize = (int)Math.Round(Helper.Map(sentData[i + 1], 0, maxYValue, 0, GRAPH_MAX_COLUMN_SIZE));
-                        highlightColumnSize = columnSize - nextColumnSize;
-                        highlightColumnStart = nextColumnSize;
-                    }
-                }
-
-                // Draw the highlight around the graph
-                for (int y = 0; y < highlightColumnSize; y++)
-                {
-                    pic.SetPixel(GRAPH_AREA_START_X + currentCol, (14 - highlightColumnStart) - y, settings.SentHighlightColor);
-                }
-
-                // always add a highlight at the top of any column
-                if (columnSize > 0)
-                    pic.SetPixel(GRAPH_AREA_START_X + currentCol, 14 - (columnSize - 1), settings.SentHighlightColor);
-
-                if (columnSize > 1)
-                    pic.SetPixel(GRAPH_AREA_START_X + currentCol, 14 - (columnSize - 2), settings.ReceivedHighlightColor);
-
-
-                currentCol++;
-            }
+            DrawColumns(receivedData, settings, maxYValue, settings.ReceivedBodyColor, settings.ReceivedHighlightColor, ref pic);
+            DrawColumns(sentData, settings, maxYValue, settings.SentBodyColor, settings.SentHighlightColor, ref pic);
 
             return pic;
         }
@@ -399,6 +209,12 @@ namespace NetworkTrayGraph
                             highlightColumnStart = nextColumnSize;
                         }
                     }
+                    //else
+                    //{
+                    //    int nextColumnSize = (int)Math.Round(Helper.Map(data[i + 1], 0, maxYValue, 0, GRAPH_MAX_COLUMN_SIZE));
+                    //    highlightColumnSize = nextColumnSize / 2;
+                    //    highlightColumnStart = columnSize;
+                    //}
                 }
                 else if (i == data.Count - 1 && data.Count > 1)
                 {

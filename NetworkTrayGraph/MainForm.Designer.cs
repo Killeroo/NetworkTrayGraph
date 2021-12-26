@@ -500,7 +500,7 @@ namespace NetworkTrayGraph
             this.Name = "MainForm";
             this.ShowInTaskbar = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
-            this.Text = "NetworkTrayGraph v1.0 - Settings";
+            this.Text = "NetworkTrayGraph v1.1 - Settings";
             this.TopMost = true;
             this.NotifyIconContextMenuStrip.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);

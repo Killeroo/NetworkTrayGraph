@@ -60,12 +60,15 @@ namespace NetworkTrayGraph
             _graphSettings.EnabledInterfaces = _monitor.GetAvailableInterfaceNames().ToDictionary(i => i, x => true);
             UpdateAvailableInterfacesListView();
 
-
             if (!string.IsNullOrEmpty(Properties.Settings.Default.SettingDataString))
             {
                 // Try and load graph settings from program settings
                 _graphSettings.FromString(Properties.Settings.Default.SettingDataString);
             }
+
+            // Update timers
+            InterfaceCheckTimer.Interval = _graphSettings.InterfaceCheckInterval;
+            UpdateTimer.Interval = _graphSettings.UpdateInterval;
 
             // Populate the ui
             PopulateUiFromSettings();

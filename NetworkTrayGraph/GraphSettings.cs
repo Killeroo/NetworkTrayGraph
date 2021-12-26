@@ -27,13 +27,14 @@ namespace NetworkTrayGraph
     /// </summary>
     public class GraphSettings
     {
-        public Color ReceivedBodyColor = Color.LightGreen;
+        public Color ReceivedBodyColor = Color.Green;
         public Color SentBodyColor = Color.OrangeRed;
-        public Color ReceivedHighlightColor = Color.FromArgb(60, 148, 60);
+        public Color ReceivedHighlightColor = Color.FromArgb(34, 83, 34);
         public Color SentHighlightColor = Color.DarkRed;
 
         public int UpdateInterval = 1000;
-        public int MaxDisplayValue = 10000;
+        public int InterfaceCheckInterval = 30000;
+        public int MaxDisplayValue = 1000;
         public Dictionary<string, bool> EnabledInterfaces;
 
         public GraphScale Scale = GraphScale.Logarithmic;
