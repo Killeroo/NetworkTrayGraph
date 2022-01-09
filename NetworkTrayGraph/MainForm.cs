@@ -363,7 +363,7 @@ namespace NetworkTrayGraph
 
             if (ColorPickerDialog.ShowDialog(this) == DialogResult.OK)
             {
-                ReceivedHighlightColorTextBox.BackColor = ColorPickerDialog.Color;
+                SentHighlightColorTextBox.BackColor = ColorPickerDialog.Color;
             }
         }
 
