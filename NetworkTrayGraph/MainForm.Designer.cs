@@ -197,7 +197,6 @@ namespace NetworkTrayGraph
             // 
             // InterfaceCheckTimer
             // 
-            this.InterfaceCheckTimer.Enabled = true;
             this.InterfaceCheckTimer.Interval = 5000;
             this.InterfaceCheckTimer.Tick += new System.EventHandler(this.InterfaceCheckTimer_OnTick);
             // 

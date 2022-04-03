@@ -181,6 +181,24 @@ namespace NetworkTrayGraph
         /// 
         private void UpdateTimer_OnTick(object sender, EventArgs e)
         {
+            // Update adapters that are available
+            Dictionary<string, bool> newEnabledInterfaces = new Dictionary<string, bool>();
+            List<string> availableInterfaceNames = _monitor.GetAvailableInterfaceNames();
+
+            foreach (var interfaceName in availableInterfaceNames)
+            {
+                // If an entry for the interface existed before, copy over if it was enabled,
+                // if not enable it by default
+                newEnabledInterfaces.Add(
+                    interfaceName,
+                    _graphSettings.EnabledInterfaces.ContainsKey(interfaceName) ? _graphSettings.EnabledInterfaces[interfaceName] : true);
+            }
+            _graphSettings.EnabledInterfaces = newEnabledInterfaces;
+
+            UpdateAvailableInterfacesListView();
+
+            _monitor.PruneInterfaceStatistics(_graphSettings);
+
             // Get latest network data from monitor
             _monitor.Update(_graphSettings);
 
@@ -259,22 +277,22 @@ namespace NetworkTrayGraph
         /// <param name="e"></param>
         private void InterfaceCheckTimer_OnTick(object sender, EventArgs e)
         {
-            Dictionary<string, bool> newEnabledInterfaces = new Dictionary<string, bool>();
-            List<string> availableInterfaceNames = _monitor.GetAvailableInterfaceNames();
+            //Dictionary<string, bool> newEnabledInterfaces = new Dictionary<string, bool>();
+            //List<string> availableInterfaceNames = _monitor.GetAvailableInterfaceNames();
 
-            foreach (var interfaceName in availableInterfaceNames)
-            {
-                // If an entry for the interface existed before, copy over if it was enabled,
-                // if not enable it by default
-                newEnabledInterfaces.Add(
-                    interfaceName,
-                    _graphSettings.EnabledInterfaces.ContainsKey(interfaceName) ? _graphSettings.EnabledInterfaces[interfaceName] : true);
-            }
-            _graphSettings.EnabledInterfaces = newEnabledInterfaces;
+            //foreach (var interfaceName in availableInterfaceNames)
+            //{
+            //    // If an entry for the interface existed before, copy over if it was enabled,
+            //    // if not enable it by default
+            //    newEnabledInterfaces.Add(
+            //        interfaceName,
+            //        _graphSettings.EnabledInterfaces.ContainsKey(interfaceName) ? _graphSettings.EnabledInterfaces[interfaceName] : true);
+            //}
+            //_graphSettings.EnabledInterfaces = newEnabledInterfaces;
 
-            UpdateAvailableInterfacesListView();
+            //UpdateAvailableInterfacesListView();
 
-            _monitor.PruneInterfaceStatistics(_graphSettings);
+            //_monitor.PruneInterfaceStatistics(_graphSettings);
         }
 
         private void OnApplicationExit(object sender, EventArgs e)
