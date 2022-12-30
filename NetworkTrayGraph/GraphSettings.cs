@@ -27,10 +27,10 @@ namespace NetworkTrayGraph
     /// </summary>
     public class GraphSettings
     {
-        public Color ReceivedBodyColor = Color.FromArgb(60, 148, 60);
-        public Color ReceivedHighlightColor = Color.FromArgb(34, 83, 34);
-        public Color SentBodyColor = Color.FromArgb(255, 128, 128);
-        public Color SentHighlightColor = Color.FromArgb(255, 0, 0);
+        public Color ReceivedBodyColor = Color.FromArgb(234, 193, 111);
+        public Color ReceivedHighlightColor = Color.FromArgb(205, 149, 31);
+        public Color SentBodyColor = Color.FromArgb(203, 165, 245);
+        public Color SentHighlightColor = Color.FromArgb(165, 98, 238);
 
         public int UpdateInterval = 1000;
         public int InterfaceCheckInterval = 30000;

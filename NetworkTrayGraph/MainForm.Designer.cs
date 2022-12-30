@@ -185,6 +185,7 @@ namespace NetworkTrayGraph
             this.label7.Size = new System.Drawing.Size(79, 13);
             this.label7.TabIndex = 24;
             this.label7.Text = "Update interval";
+            this.label7.Visible = false;
             // 
             // label8
             // 
@@ -194,6 +195,7 @@ namespace NetworkTrayGraph
             this.label8.Size = new System.Drawing.Size(20, 13);
             this.label8.TabIndex = 26;
             this.label8.Text = "ms";
+            this.label8.Visible = false;
             // 
             // InterfaceCheckTimer
             // 
@@ -247,6 +249,7 @@ namespace NetworkTrayGraph
             0,
             0,
             0});
+            this.UpdateIntervalNumericUpDown.Visible = false;
             // 
             // groupBox1
             // 
