@@ -101,7 +101,7 @@ namespace NetworkTrayGraph
                 }
                 else
                 {
-                    InterfaceStats[adapterName] = UpdateAdapterStatistics(nic, InterfaceStats[adapterName], settings.UpdateInterval); ;
+                    InterfaceStats[adapterName] = UpdateAdapterStatistics(nic, InterfaceStats[adapterName], settings.UpdateInterval);
                 }
             }
         }
@@ -135,14 +135,28 @@ namespace NetworkTrayGraph
 
         private InterfaceStatistics UpdateAdapterStatistics(NetworkInterface @interface, InterfaceStatistics oldStats, int updateIntervalMs)
         {
-            IPv4InterfaceStatistics interfaceIPv4Stats = @interface.GetIPv4Statistics();
+            IPv4InterfaceStatistics interfaceIPv4Stats;
             InterfaceStatistics newStats = new InterfaceStatistics(oldStats);
 
-            newStats.Status = @interface.OperationalStatus;
+            try
+            {
+                // Retrieve current network stats
+                interfaceIPv4Stats = @interface.GetIPv4Statistics();
+            }
+            catch (NetworkInformationException)
+            {
+                // Ok so there is something wrong with the adapter (it might have disappeared)
+                // Just return the old stats for now (with a blank sent/receive) and
+                // assume that the adapter will get pruned at some point.
+                newStats.BytesReceivedPerSecond = 0;
+                newStats.BytesSentPerSecond = 0;
+                return newStats;
+            }
 
+            // Save net stats
+            newStats.Status = @interface.OperationalStatus;
             newStats.LastSentBytes = oldStats.SentBytes;
             newStats.LastReceivedBytes = oldStats.ReceivedBytes;
-
             newStats.SentBytes = interfaceIPv4Stats.BytesSent;
             newStats.ReceivedBytes = interfaceIPv4Stats.BytesReceived;
 
