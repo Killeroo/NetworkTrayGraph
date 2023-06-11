@@ -100,14 +100,14 @@ namespace NetworkTrayGraph
             this.toolStripSeparator1,
             this.ExitToolStripMenuItem});
             this.NotifyIconContextMenuStrip.Name = "NotifyIconContextMenuStrip";
-            this.NotifyIconContextMenuStrip.Size = new System.Drawing.Size(173, 82);
+            this.NotifyIconContextMenuStrip.Size = new System.Drawing.Size(197, 104);
             // 
             // TitleToolStripMenuItem
             // 
             this.TitleToolStripMenuItem.Enabled = false;
             this.TitleToolStripMenuItem.Name = "TitleToolStripMenuItem";
-            this.TitleToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
-            this.TitleToolStripMenuItem.Text = "NetworkTrayGraph";
+            this.TitleToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
+            this.TitleToolStripMenuItem.Text = "NetworkTrayGraph v1.3";
             // 
             // toolStripSeparator2
             // 
@@ -501,7 +501,7 @@ namespace NetworkTrayGraph
             this.Name = "MainForm";
             this.ShowInTaskbar = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
-            this.Text = "NetworkTrayGraph v1.2 - Settings";
+            this.Text = "NetworkTrayGraph v1.3 - Settings";
             this.TopMost = true;
             this.NotifyIconContextMenuStrip.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
